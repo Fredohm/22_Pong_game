@@ -1,6 +1,7 @@
 # Pong Game
 from turtle import Turtle, Screen
 from paddle import Paddle
+from ball import Ball
 
 WIDTH = 800
 HEIGHT = 600
@@ -37,9 +38,14 @@ left_paddle.create_paddle(LEFT_PADDLE_STARTING_POS)
 
 right_paddle = Paddle()
 right_paddle.create_paddle(RIGHT_PADDLE_STARTING_POS)
+
 screen.update()
 
-# create the ball and make it move
+ball = Ball()
+ball.starting_direction()
+ball.move()
+
+screen.update()
 
 # detect collision with the wall and bounce
 
