@@ -1,6 +1,8 @@
 from turtle import Turtle
 from random import randint
 
+BALL_MOVE = 10
+
 
 class Ball(Turtle):
     # create the ball
@@ -15,4 +17,7 @@ class Ball(Turtle):
 
     # make it move
     def move(self):
-        self.forward(100)
+        self.forward(BALL_MOVE)
+
+    def bounce(self):
+        self.setheading(0 - self.heading())
