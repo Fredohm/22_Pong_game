@@ -1,5 +1,10 @@
 from turtle import Turtle
 
+SPEED_MOVE = 20
+
+NORTH = 90
+SOUTH = 270
+
 
 class Paddle:
 
@@ -14,4 +19,14 @@ class Paddle:
             new_segment.penup()
             new_segment.goto(position)
             self.segments.append(new_segment)
+
+    def up(self):
+        for segment in self.segments:
+            segment.setheading(NORTH)
+            segment.forward(SPEED_MOVE)
+
+    def down(self):
+        for segment in self.segments:
+            segment.setheading(SOUTH)
+            segment.forward(SPEED_MOVE)
 

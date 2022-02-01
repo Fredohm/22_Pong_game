@@ -14,6 +14,7 @@ GAME_SPEED = 0.05
 
 # create screen
 screen = Screen()
+screen.listen()
 
 screen.setup(width=WIDTH, height=HEIGHT)
 screen.bgcolor("black")
@@ -34,13 +35,17 @@ while net.ycor() < WIDTH / 2:
     net.penup()
     net.forward(40)
 
-
 # create two paddles
 left_paddle = Paddle()
 left_paddle.create_paddle(LEFT_PADDLE_STARTING_POS)
+screen.onkeypress(left_paddle.up, "a")
+screen.onkeypress(left_paddle.down, "q")
 
 right_paddle = Paddle()
 right_paddle.create_paddle(RIGHT_PADDLE_STARTING_POS)
+screen.onkeypress(right_paddle.up, "Up")
+screen.onkeypress(right_paddle.down, "Down")
+
 
 # keep score
 
@@ -62,7 +67,6 @@ while game_is_on:
         x_pos = ball.xcor()
         if y_pos < -290 or y_pos > 290:
             ball.bounce()
-        print(x_pos)
         # detect collision with paddle
         if x_pos < 0:
             for segment in left_paddle.segments:
