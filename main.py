@@ -10,7 +10,7 @@ HEIGHT = 600
 LEFT_PADDLE_STARTING_POS = -350
 RIGHT_PADDLE_STARTING_POS = 350
 
-BALL_SPEED = 0.05
+BALL_SPEED = 0.1
 
 # create screen
 screen = Screen()
@@ -64,17 +64,15 @@ while game_is_on:
         y_pos = ball.ycor()
         x_pos = ball.xcor()
         if y_pos < -290 or y_pos > 290:
-            ball.bounce()
+            ball.bounce_y()
 
         # detect collision with paddle
         if x_pos < 0:
-            if left_paddle.distance(ball) < 15:
-                ball.setheading(-x_pos)
-                break
+            if ball.distance(left_paddle) < 50 and ball.xcor() < -330:
+                ball.bounce_x()
         else:
-            if right_paddle.distance(ball) < 15:
-                ball.setheading(x_pos - 180)
-                break
+            if ball.distance(right_paddle) < 50 and ball.xcor() > 330:
+                ball.bounce_x()
 
         # detect when paddle misses
         if x_pos < -390 or x_pos > 390:
