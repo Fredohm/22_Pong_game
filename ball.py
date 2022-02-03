@@ -5,19 +5,24 @@ BALL_MOVE = 10
 
 
 class Ball(Turtle):
+
     # create the ball
     def __init__(self):
         super().__init__()
         self.shape("circle")
         self.color("white")
         self.penup()
+        self.x_move = BALL_MOVE
+        self.y_move = BALL_MOVE
 
     def starting_direction(self):
         self.setheading(randint(120, 220))
 
     # make it move
     def move(self):
-        self.forward(BALL_MOVE)
+        new_x = self.xcor() + self.x_move
+        new_y = self.ycor() + self.y_move
+        self.goto(new_x, new_y)
 
     def bounce(self):
-        self.setheading(0 - self.heading())
+        self.y_move *= -1

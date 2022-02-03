@@ -23,10 +23,11 @@ screen.listen()
 
 # create two paddles
 left_paddle = Paddle(LEFT_PADDLE_STARTING_POS)
+right_paddle = Paddle(RIGHT_PADDLE_STARTING_POS)
+
 screen.onkeypress(left_paddle.up, "a")
 screen.onkeypress(left_paddle.down, "q")
 
-right_paddle = Paddle(RIGHT_PADDLE_STARTING_POS)
 screen.onkeypress(right_paddle.up, "Up")
 screen.onkeypress(right_paddle.down, "Down")
 
