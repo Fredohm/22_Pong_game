@@ -7,19 +7,28 @@ from ball import Ball
 WIDTH = 800
 HEIGHT = 600
 
-LEFT_PADDLE_STARTING_POS = [(-360, -20), (-360, 0), (-360, 20)]
-RIGHT_PADDLE_STARTING_POS = [(360, -20), (360, 0), (360, 20)]
+LEFT_PADDLE_STARTING_POS = -350
+RIGHT_PADDLE_STARTING_POS = 350
 
-GAME_SPEED = 0.05
+BALL_SPEED = 0.05
 
 # create screen
 screen = Screen()
-screen.listen()
-
 screen.setup(width=WIDTH, height=HEIGHT)
 screen.bgcolor("black")
 screen.title("Pong")
 screen.tracer(0)
+
+screen.listen()
+
+# create two paddles
+left_paddle = Paddle(LEFT_PADDLE_STARTING_POS)
+screen.onkeypress(left_paddle.up, "a")
+screen.onkeypress(left_paddle.down, "q")
+
+right_paddle = Paddle(RIGHT_PADDLE_STARTING_POS)
+screen.onkeypress(right_paddle.up, "Up")
+screen.onkeypress(right_paddle.down, "Down")
 
 # Draw dashed_line in the middle of the screen
 net = Turtle("square")
@@ -35,18 +44,6 @@ while net.ycor() < WIDTH / 2:
     net.penup()
     net.forward(40)
 
-# create two paddles
-left_paddle = Paddle()
-left_paddle.create_paddle(LEFT_PADDLE_STARTING_POS)
-screen.onkeypress(left_paddle.up, "a")
-screen.onkeypress(left_paddle.down, "q")
-
-right_paddle = Paddle()
-right_paddle.create_paddle(RIGHT_PADDLE_STARTING_POS)
-screen.onkeypress(right_paddle.up, "Up")
-screen.onkeypress(right_paddle.down, "Down")
-
-
 # keep score
 
 ball = Ball()
@@ -60,24 +57,23 @@ while game_is_on:
     while not new_ball:
         screen.update()
         ball.move()
-        time.sleep(GAME_SPEED)
+        time.sleep(BALL_SPEED)
 
         # detect collision with the wall and bounce
         y_pos = ball.ycor()
         x_pos = ball.xcor()
         if y_pos < -290 or y_pos > 290:
             ball.bounce()
+
         # detect collision with paddle
         if x_pos < 0:
-            for segment in left_paddle.segments:
-                if segment.distance(ball) < 15:
-                    ball.setheading(-x_pos)
-                    break
+            if left_paddle.distance(ball) < 15:
+                ball.setheading(-x_pos)
+                break
         else:
-            for segment in right_paddle.segments:
-                if segment.distance(ball) < 15:
-                    ball.setheading(x_pos - 180)
-                    break
+            if right_paddle.distance(ball) < 15:
+                ball.setheading(x_pos - 180)
+                break
 
         # detect when paddle misses
         if x_pos < -390 or x_pos > 390:
