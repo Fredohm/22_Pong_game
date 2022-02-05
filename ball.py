@@ -15,9 +15,6 @@ class Ball(Turtle):
         self.x_move = BALL_MOVE
         self.y_move = BALL_MOVE
 
-    def starting_direction(self):
-        self.setheading(randint(120, 220))
-
     # make it move
     def move(self):
         new_x = self.xcor() + self.x_move
@@ -29,3 +26,6 @@ class Ball(Turtle):
 
     def bounce_x(self):
         self.x_move *= -1
+
+    def reset_position(self):
+        self.bounce_x()

@@ -22,14 +22,14 @@ screen.tracer(0)
 screen.listen()
 
 # create two paddles
-left_paddle = Paddle(LEFT_PADDLE_STARTING_POS)
-right_paddle = Paddle(RIGHT_PADDLE_STARTING_POS)
+l_paddle = Paddle(LEFT_PADDLE_STARTING_POS)
+r_paddle = Paddle(RIGHT_PADDLE_STARTING_POS)
 
-screen.onkeypress(left_paddle.up, "a")
-screen.onkeypress(left_paddle.down, "q")
+screen.onkeypress(l_paddle.up, "a")
+screen.onkeypress(l_paddle.down, "q")
 
-screen.onkeypress(right_paddle.up, "Up")
-screen.onkeypress(right_paddle.down, "Down")
+screen.onkeypress(r_paddle.up, "Up")
+screen.onkeypress(r_paddle.down, "Down")
 
 # Draw dashed_line in the middle of the screen
 net = Turtle("square")
@@ -53,8 +53,7 @@ game_is_on = True
 while game_is_on:
     new_ball = False
     ball.setposition(0, 0)
-    print("new ball")
-    ball.starting_direction()
+
     while not new_ball:
         screen.update()
         ball.move()
@@ -67,16 +66,16 @@ while game_is_on:
             ball.bounce_y()
 
         # detect collision with paddle
-        if x_pos < 0:
-            if ball.distance(left_paddle) < 50 and ball.xcor() < -330:
-                ball.bounce_x()
-        else:
-            if ball.distance(right_paddle) < 50 and ball.xcor() > 330:
-                ball.bounce_x()
+        if ball.distance(l_paddle) < 50 and ball.xcor() < -330 or ball.distance(r_paddle) < 50 and ball.xcor() > 330:
+            ball.bounce_x()
 
         # detect when paddle misses
-        if x_pos < -390 or x_pos > 390:
-            ball.clear()
+        if x_pos > 390:
+            ball.reset_position()
+            new_ball = True
+
+        if ball.xcor() < -390:
+            ball.reset_position()
             new_ball = True
 
 screen.exitonclick()
