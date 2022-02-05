@@ -3,6 +3,7 @@ import time
 from turtle import Turtle, Screen
 from paddle import Paddle
 from ball import Ball
+from scoreboard import Scoreboard
 
 WIDTH = 800
 HEIGHT = 600
@@ -45,7 +46,8 @@ while net.ycor() < WIDTH / 2:
     net.penup()
     net.forward(40)
 
-# keep score
+# create scoreboard
+scoreboard = Scoreboard()
 
 ball = Ball()
 
@@ -72,10 +74,14 @@ while game_is_on:
         # detect when paddle misses
         if x_pos > 390:
             ball.reset_position()
+            scoreboard.increase_score(x_pos)
+            scoreboard.update_scoreboard()
             new_ball = True
 
         if ball.xcor() < -390:
             ball.reset_position()
+            scoreboard.increase_score(x_pos)
+            scoreboard.update_scoreboard()
             new_ball = True
 
 screen.exitonclick()
