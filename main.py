@@ -32,20 +32,6 @@ screen.onkeypress(l_paddle.down, "q")
 screen.onkeypress(r_paddle.up, "Up")
 screen.onkeypress(r_paddle.down, "Down")
 
-# Draw dashed_line in the middle of the screen
-net = Turtle("square")
-net.color("white")
-net.pensize(5)
-net.penup()
-net.sety(-WIDTH / 2)
-
-while net.ycor() < WIDTH / 2:
-    net.pendown()
-    net.setheading(90)
-    net.forward(40)
-    net.penup()
-    net.forward(40)
-
 # create scoreboard
 scoreboard = Scoreboard()
 
@@ -55,6 +41,7 @@ game_is_on = True
 while game_is_on:
     new_ball = False
     ball.setposition(0, 0)
+    scoreboard.draw_net(WIDTH, HEIGHT)
 
     while not new_ball:
         screen.update()
