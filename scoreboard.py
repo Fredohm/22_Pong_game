@@ -12,8 +12,8 @@ class Scoreboard(Turtle):
         self.hideturtle()
         self.speed("fastest")
         self.color("white")
-        self.update_scoreboard()
         self.draw_net(width=800, height=600)
+        self.update_scoreboard()
 
     # Draw dashed_line in the middle of the screen
     def draw_net(self, width, height):
@@ -32,11 +32,11 @@ class Scoreboard(Turtle):
 
     def update_scoreboard(self):
         self.penup()
-        self.goto(-50, 240)
+        self.goto(-70, 240)
         self.pendown()
         self.write(self.l_score, font=FONT)
         self.penup()
-        self.goto(20, 240)
+        self.goto(40, 240)
         self.pendown()
         self.write(self.r_score, font=FONT)
 
@@ -47,3 +47,5 @@ class Scoreboard(Turtle):
             self.l_score += 1
         self.clear()
         self.update_scoreboard()
+
+        return self.r_score < 10 and self.l_score < 10

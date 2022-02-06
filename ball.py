@@ -1,7 +1,4 @@
 from turtle import Turtle
-from random import randint
-
-BALL_MOVE = 10
 
 
 class Ball(Turtle):
@@ -12,8 +9,9 @@ class Ball(Turtle):
         self.shape("circle")
         self.color("white")
         self.penup()
-        self.x_move = BALL_MOVE
-        self.y_move = BALL_MOVE
+        self.x_move = 10
+        self.y_move = 10
+        self.ball_speed = 0.1
 
     # make it move
     def move(self):
@@ -26,6 +24,9 @@ class Ball(Turtle):
 
     def bounce_x(self):
         self.x_move *= -1
+        self.ball_speed *= 0.8
 
     def reset_position(self):
+        self.goto(0, 0)
+        self.ball_speed = 0.1
         self.bounce_x()

@@ -1,6 +1,6 @@
 # Pong Game
 import time
-from turtle import Turtle, Screen
+from turtle import Screen
 from paddle import Paddle
 from ball import Ball
 from scoreboard import Scoreboard
@@ -10,8 +10,6 @@ HEIGHT = 600
 
 LEFT_PADDLE_STARTING_POS = -350
 RIGHT_PADDLE_STARTING_POS = 350
-
-BALL_SPEED = 0.1
 
 # create screen
 screen = Screen()
@@ -34,6 +32,7 @@ screen.onkeypress(r_paddle.down, "Down")
 
 # create scoreboard
 scoreboard = Scoreboard()
+scoreboard.draw_net(WIDTH, HEIGHT)
 
 ball = Ball()
 
@@ -41,12 +40,11 @@ game_is_on = True
 while game_is_on:
     new_ball = False
     ball.setposition(0, 0)
-    scoreboard.draw_net(WIDTH, HEIGHT)
 
     while not new_ball:
         screen.update()
         ball.move()
-        time.sleep(BALL_SPEED)
+        time.sleep(ball.ball_speed)
 
         # detect collision with the wall and bounce
         y_pos = ball.ycor()
@@ -61,14 +59,16 @@ while game_is_on:
         # detect when paddle misses
         if x_pos > 390:
             ball.reset_position()
-            scoreboard.increase_score(x_pos)
+            game_is_on = scoreboard.increase_score(x_pos)
             scoreboard.update_scoreboard()
             new_ball = True
 
         if ball.xcor() < -390:
             ball.reset_position()
-            scoreboard.increase_score(x_pos)
+            game_is_on = scoreboard.increase_score(x_pos)
             scoreboard.update_scoreboard()
             new_ball = True
+
+    scoreboard.draw_net(WIDTH, HEIGHT)
 
 screen.exitonclick()
